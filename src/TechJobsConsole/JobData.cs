@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -49,7 +50,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
@@ -138,5 +139,38 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+
+        // THIS CHANGED
+        public static List<Dictionary<string, string>> FindByValue(string value) //value meant to be called later in the code
+        {
+            // load data, for some reason
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>(); //holds the value of what you want to print to console.
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> data in row)
+                
+                
+                if (data.Value.ToLower().Contains(value.ToLower())) // call the value of "value" 
+                {
+                  
+
+                    if (!jobs.Contains(row))
+                        {
+                            jobs.Add(row);
+                        }
+                        
+
+
+                }
+            }
+
+            return jobs;
+
+
+        }
+
     }
 }
